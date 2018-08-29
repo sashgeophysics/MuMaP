@@ -1,0 +1,15 @@
+#!/bin/bash --login
+#
+#PBS -l select=1
+#PBS -o mumap.out
+#PBS -e mumap.error
+
+#PBS -l walltime=0:10:00
+#PBS -m be
+#PBS -M saswata.hier-majumder@rhul.ac.uk
+#PBS -A n03-shm
+
+
+
+aprun -n 2-d 4 hmt.exe
+

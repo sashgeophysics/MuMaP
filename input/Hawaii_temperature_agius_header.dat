@@ -1,0 +1,12 @@
+# This file contains preprocessed seismic data from Ps receiver function
+# Contents of the columns are
+# Lat Lon 350 410  Rnorm dT0, dT1 .. dT8
+# Lat =  Latitude
+# Lon =  Longitude
+# 350 => depth to the peak of the Low Velocity zone (in km)
+# 410 => Depth to the top of the transition zone
+# dT  => Temperature anomaly at each location in (K) calculated from
+#        transition zone thickness
+#        dT0...dT8 are temperature anomalies calculated for
+#        values of Clapeyrone slopes starting from 0.5 MPa/K to 4.5 Mpa/K in
+#        increments of 0.5 MPa/K

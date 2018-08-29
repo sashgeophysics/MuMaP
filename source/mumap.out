@@ -1,0 +1,19 @@
+--------------------------------------------------------------------------------
+*** saswata   Job: 3554196.sdb   started: 07/03/16 13:23:51   host: mom3 ***
+*** saswata   Job: 3554196.sdb   started: 07/03/16 13:23:51   host: mom3 ***
+*** saswata   Job: 3554196.sdb   started: 07/03/16 13:23:51   host: mom3 ***
+*** saswata   Job: 3554196.sdb   started: 07/03/16 13:23:51   host: mom3 ***
+
+--------------------------------------------------------------------------------
+ HMT: initialization successful
+Application 20839712 resources: utime ~0s, stime ~0s, Rss ~5636, inblocks ~9455, outblocks ~24037
+--------------------------------------------------------------------------------
+
+Resources requested: ncpus=24,place=free,walltime=00:20:00
+Resources allocated: cpupercent=0,cput=00:00:00,mem=0kb,ncpus=24,vmem=0kb,walltime=00:00:03
+
+*** saswata   Job: 3554196.sdb   ended: 07/03/16 13:23:53   queue: S3550321 ***
+*** saswata   Job: 3554196.sdb   ended: 07/03/16 13:23:53   queue: S3550321 ***
+*** saswata   Job: 3554196.sdb   ended: 07/03/16 13:23:53   queue: S3550321 ***
+*** saswata   Job: 3554196.sdb   ended: 07/03/16 13:23:53   queue: S3550321 ***
+--------------------------------------------------------------------------------

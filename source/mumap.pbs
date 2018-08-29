@@ -1,0 +1,21 @@
+#!/bin/bash --login
+#
+#PBS -l select=1
+#PBS -o mumap.out
+#PBS -e mumap.error
+
+#PBS -l walltime=0:20:00
+#PBS -m be
+#PBS -M saswata.hier-majumder@rhul.ac.uk
+#PBS -A n03-shm
+
+# Make sure any symbolic links are resolved to absolute path
+export PBS_O_WORKDIR=$(readlink -f $PBS_O_WORKDIR)
+
+# Change to the directory that the job was submitted from.
+cd $PBS_O_WORKDIR
+
+export INSTANT_SYSTEM_CALL_METHOD=OS_SYSTEM
+
+aprun -n 1 hmt.exe
+
