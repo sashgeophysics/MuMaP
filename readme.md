@@ -8,8 +8,10 @@ regional.f90 (data input-output utilities, object definitions)
 
 The input data should be placed in the library named 'input'
 
-#Input format
+# Input format
+
 ##########################################################################
+
 The format of the input data should be  the following:
 
 Lat Lon LVL 410 Rnorm T1 ... Tn
@@ -18,7 +20,8 @@ where Lat and Lon give locations of each data point, LVL is the depth to LVL
 calculated separately from the transition zone thickness
 ##########################################################################       	   	 
 
-#Output format
+# Output format
+
 ##########################################################################
 Output is generated in the folder titled 'data' and a typical output file
 has the format:
@@ -30,7 +33,8 @@ has the format:
  zzzz is reference potential temperature
 ##########################################################################
 
-#Module microgeodynamics.f90
+# Module microgeodynamics.f90
+
 ##########################################################################
 !> This module contains  a number of mineral and rock physics
   !!utility routines. There are a number of derived types defined
@@ -56,9 +60,11 @@ has the format:
   !! Created by Saswata Hier-Majumder, August, 2012. !<
 ##########################################################################
 
-#Module regional.f90
+# Module regional.f90
+
 
 ##########################################################################
+
 !> This module contains data types and functions applicable
   !!to the region of interest. Each location in the region
   !!is assigned a unit cell, which contains the physical properties.
