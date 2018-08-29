@@ -17,41 +17,40 @@ PROGRAM agius_hi
   real(sp),dimension(7)::dihedral
 
   potential_temperature=(/1400.0_sp,1500.0_sp,1600.0_sp,1700.0_sp,1800.0_sp/)
-
+  basalt = (/10,20,30,40,50,60,70,80,90,99/)
   MTZ_TOPO_NORMALIZE_HAWAII=.TRUE.
   ! Create the parameter space for dihedral angles
   dihedral_angle=linspace(5.0_sp,30.0_sp,10)
+  do kk=1,10
+     do ii=1,5
+        ! Define composition space 
+        HAWAII_REF_COMP=composition(potential_temperature&
+             &=potential_temperature(ii),basalt_fraction=basalt(kk))
+        ! Load solid composition for 352 km from Xu et al (2008)
+        HAWAII_REF_MANTLE=load_composition(HAWAII_REF_COMP&
+             &,'../input/352.dat')          
+        ! Load the regional data
+        HAWAII=load_seismo_hmt(HAWAII_REF_COMP,3&
+             &,'../input/Hawaii_temperature_agius.csv',MTZ_TOPO_NORMALIZE_HAWAII,velocity_contrast_410,14) 
 
-  do ii=1,5
-     ! Define composition space 
-     HAWAII_REF_COMP=composition(potential_temperature&
-          &=potential_temperature(ii),basalt_fraction=40)
-     ! Load solid composition for 352 km from Xu et al (2008)
-     HAWAII_REF_MANTLE=load_composition(HAWAII_REF_COMP&
-          &,'../input/352.dat')          
-     ! Load the regional data
-     HAWAII=load_seismo_hmt(HAWAII_REF_COMP,3&
-          &,'../input/&
-          &Hawaii_temperature_agius.dat',MTZ_TOPO_NORMALIZE_HAWAII,velocity_contrast_410,14) 
+        ! loop through dihedral angle values
+        dihedral=(/10.0_sp,15.0_sp,20.0_sp,25.0_sp,30.0_sp,35.0_sp,40.0_sp/)
+        do jj=1,7
+           ! Set the melt composition
+           HAWAII%MAGMA=set_melt(5,dihedral(jj)) 
 
-    ! loop through dihedral angle values
-     dihedral=(/10.0_sp,15.0_sp,20.0_sp,25.0_sp,30.0_sp,35.0_sp,40.0_sp/)
-     do jj=1,7
-         ! Set the melt composition
-        HAWAII%MAGMA=set_melt(5,dihedral(jj)) 
+           PRINT*,  'HMT: initialization successful'
+           ! Calculate melt volume fraction from the observed data
+           HAWAII=melt_calculate(HAWAII)
 
-        PRINT*,  'HMT: initialization successful'
-        ! Calculate melt volume fraction from the observed data
-        HAWAII=melt_calculate(HAWAII)
+           ! Write the data for various formats
+           !CALL vtk_write(HAWAII,HAWAII_REF_MANTLE,'../data/HMT/')
+           CALL data_table_output(HAWAII,HAWAII_REF_MANTLE,'../data/AGIUS/')
+           !CALL melt_gmt_output(HAWAII,HAWAII_REF_MANTLE,'../data/AGIUS/')
+        end do
 
-        ! Write the data for various formats
-        !CALL vtk_write(HAWAII,HAWAII_REF_MANTLE,'../data/HMT/')
-        CALL data_table_output(HAWAII,HAWAII_REF_MANTLE,'../data/AGIUS/')
-        CALL melt_gmt_output(HAWAII,HAWAII_REF_MANTLE,'../data/AGIUS/')
      end do
-
   end do
-
 
 
 CONTAINS 

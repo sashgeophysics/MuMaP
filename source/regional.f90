@@ -172,8 +172,9 @@ CONTAINS
     !! properly commented. !<
 
     load_seismo_hmt%comp=c
-    load_seismo_hmt%NGRID=line_numbers(fname,10000)
-
+    !load_seismo_hmt%NGRID=line_numbers(fname,10000)
+    ! This value is only for Agius Hawaii data, change it
+    load_seismo_hmt%NGRID=1681
     !> Read the number of columns into a character and 
     !! format the input !<
 
