@@ -30,9 +30,12 @@ PROGRAM agius_hi
         HAWAII_REF_MANTLE=load_composition(HAWAII_REF_COMP&
              &,'../input/352.dat')          
         ! Load the regional data
+        ! The first call uses temperature calculated from MTZ thickness
         HAWAII=load_seismo_hmt(HAWAII_REF_COMP,3&
-             &,'../input/Hawaii_temperature_agius.csv',MTZ_TOPO_NORMALIZE_HAWAII,velocity_contrast_410,14) 
-
+        !     &,'../input/Hawaii_temperature_agius.csv',MTZ_TOPO_NORMALIZE_HAWAII,velocity_contrast_410,14)
+        !This call uses temperature calculated from 410 totpography
+        !HAWAII=load_seismo_hmt(HAWAII_REF_COMP,3&
+             &,'../input/Hawaii_temperature_from410topo_agius.csv',MTZ_TOPO_NORMALIZE_HAWAII,velocity_contrast_410,14)
         ! loop through dihedral angle values
         dihedral=(/10.0_sp,15.0_sp,20.0_sp,25.0_sp,30.0_sp,35.0_sp,40.0_sp/)
         do jj=1,7
