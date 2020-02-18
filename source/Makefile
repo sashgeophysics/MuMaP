@@ -16,10 +16,14 @@ MKLPATH= ${MKLROOT}/lib/intel64/libmkl_blas95_lp64.a ${MKLROOT}/lib/intel64/libm
 MKLINCLUDE= -I${MKLROOT}/include/intel64/lp64 -I${MKLROOT}/include
 
 MKLFLAG= -L$(MKLPATH) $(MKLINCLUDE) 
-SOURCES=  hmkc13.f90 LAB.f90 hmt.f90 agius_hi.f90
+SOURCES=  hmkc13.f90 LAB.f90 hmt.f90 agius_hi.f90 Eastasia.f90
 MODULES =  global.mod microgeodynamics.mod regional.mod
 MODOBJ = global.o microgeodynamics.o regional.o
 MOD_FILES=$(MODULES:.f90=.o)
+
+ASIA_SOURCE=Eastasia.f90
+ASIA_OBJECT=$(ASIA_SOURCE:.f90=.o)
+ASIA_EXEC=Eastasia.exe
 
 AGIUS_SOURCE=agius_hi.f90
 AGIUS_OBJECT=$(AGIUS_SOURCE:.f90=.o)
@@ -45,9 +49,11 @@ LAB_EXEC=lab.exe
 ####################
 # Compile Executable
 ####################
-.PHONY:all HMKC LAB HMT AGIUS
+.PHONY:all HMKC LAB HMT AGIUS ASIA
 
-all: HMKC LAB HMT AGIUS
+all: HMKC LAB HMT AGIUS ASIA
+
+ASIA:$(ASIA_EXEC)
 
 AGIUS:$(AGIUS_EXEC)
 
@@ -56,6 +62,9 @@ HMT:$(HMT_EXEC)
 HMKC:$(HMKC_EXEC)
 
 LAB:$(LAB_EXEC)
+
+$(ASIA_EXEC): object_files 
+	$(FC) $(FLAG) $(ASIA_EXEC) $(ASIA_OBJECT)  $(MODOBJ) $(MKLFLAG)
 
 $(AGIUS_EXEC): object_files 
 	$(FC) $(FLAG) $(AGIUS_EXEC) $(AGIUS_OBJECT)  $(MODOBJ) $(MKLFLAG)

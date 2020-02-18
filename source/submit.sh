@@ -7,7 +7,7 @@
 #PBS -l walltime=0:10:00
 #PBS -m be
 #PBS -M saswata.hier-majumder@rhul.ac.uk
-#PBS -A n03-shm
+#PBS -A n03-rh
 cd /work/n03/n03/saswata/MuMAP/source
 
-aprun -n 24 -d 1 agius_hi.exe
+aprun -n 24 -d 1 Eastasia.exe

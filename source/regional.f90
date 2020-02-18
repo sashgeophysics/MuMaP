@@ -174,7 +174,7 @@ CONTAINS
     load_seismo_hmt%comp=c
     !load_seismo_hmt%NGRID=line_numbers(fname,10000)
     ! This value is only for Agius Hawaii data, change it
-    load_seismo_hmt%NGRID=1681
+    load_seismo_hmt%NGRID=1490
     !> Read the number of columns into a character and 
     !! format the input !<
 
@@ -207,10 +207,10 @@ CONTAINS
        !> The input data contains dT for claperon slopes 0.5-4.5MPa/K
        !! with increments of 0.5 starting from column 5 !>
 
-       ! For 3 MPa/K read from column 10
-       ! For 4 MPa/K read from column 12
+       ! For 3 MPa/K read from column 11
+       ! For 4 MPa/K read from column 13
        load_seismo_hmt%CELL(ii)%temperature=DBLE(load_seismo_hmt&
-            &%comp%potential_temperature) + DATA(ii,10) + 0.3_sp*350.0_sp
+            &%comp%potential_temperature) + DATA(ii,11) + 0.3_sp*350.0_sp
        !> Convert the temperature to  Shear wave velocity
        !!using the function temp2vs in module microgeodynamics!<
        load_seismo_hmt%CELL(ii)%vs_sol=temp2vs(load_seismo_hmt%CELL(ii)&

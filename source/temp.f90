@@ -1,42 +1,40 @@
 program temp
-  implicit none
-  INTEGER::dim
-  CHARACTER(len=72)::fname,fname2
+
+  IMPLICIT NONE
+  INTEGER, PARAMETER :: SP = KIND(1.0D0)
+  CHARACTER(len=40)::fname
   character(len=24)::colnum,fmt
-  INTEGER::ncols,NGRID ! The number ofcolumns in the input file
-
-  REAL,DIMENSION(:,:),POINTER::DATA,temp1
-  REAL,DIMENSION(:,:),POINTER::x
-  REAL,DIMENSION(3)::prem_value
-
-  INTEGER::ii
-  
-  fname='../input/mydata.csv'
-  fname2='hmtdata.csv'
+  REAL(sp)::z,impedance350,prem_impedance
+  REAL(sp),DIMENSION(2)::impedance_vel
+  REAL(sp),DIMENSION(:,:),POINTER::DATA,temp1
+  REAL(sp),DIMENSION(:,:),POINTER::x
+  REAL(sp),DIMENSION(3)::prem_value
+  INTEGER::ii,ncols,NGRID
+  fname='../input/&
+       &Hawaii_temperature_agius.csv'
   NGRID=line_numbers(fname,10000)
+  NGRID=1681
   ncols=14
+  print *, 'Nrid is',NGRID
   WRITE(colnum,'(i3)'),ncols
-  
-  fmt="("//trim(colnum)//"(1x,f10.3))"
-  ALLOCATE(DATA(NGRID,ncols),temp1(ncols,NGRID),x(3,NGRID))
-  OPEN(10,file=fname,status='unknown',form='formatted')
-  OPEN(20,file=fname2,status='unknown',form='formatted')
-  OPEN(20,file='x.dat',status='unknown',form='formatted')
-  
+  fmt="("//trim(colnum)//"(1x,e12.5))"
+  ALLOCATE(DATA(NGRID,ncols),&
+       &temp1(ncols,NGRID),&
+       &x(NGRID,3))
+  OPEN(10,file=fname,status='unknown',form='formatted')    
   READ(10,fmt),temp1
-  DATA=transpose(temp1)
-  DO ii=1,NGRID
-     write(20,fmt),DATA(ii,:)
-     write(*,fmt),DATA(ii,:)
-  END DO
+
   CLOSE(10)
-  close(20)
-  deallocate(DATA,x)
+  DATA=transpose(temp1)
+  x(:,1)=DATA(:,1)
+  x(:,2)=DATA(:,10)
+  x(:,3)=DATA(:,10)+0.3_sp*350.0_sp
+  write(*,fmt),x(:,2)
+  print *, '#######################'
+  write(*,fmt),x(:,3)
+  print*,'load_seismo_hmt: max(amp),min(amp)',maxval(DATA(:,5)),minval(DATA(:,5))
+
 contains
-  !> This is a utility function to count the number of lines in a file
-  !On input, filename is the name of the file and lmax is a guess
-  ! about how many lines there are. If you are not sure, provide a
-  ! large number, say, 10000. !<
   FUNCTION line_numbers(fname,lmax)
     IMPLICIT NONE
     CHARACTER(len=*),INTENT(in)::fname
